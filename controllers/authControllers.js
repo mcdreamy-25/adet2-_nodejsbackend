@@ -6,7 +6,7 @@ const register = async (req, res) => {
   const { fullname, username, passwordx } = req.body;   
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(passwordx, 10);
     const [rows] = await pool.query('INSERT INTO users (fullname, username, passwordx) VALUES (?, ?, ?)', [fullname, username, hashedPassword]);
 
     res.status(201).json({ message: 'You are successfully registered!!' });
@@ -26,7 +26,7 @@ const login = async (req, res) => {
     }
 
     const user = rows[0];
-    const isMatch = await bcrypt.compare(passwordx, user.password);
+    const isMatch = await bcrypt.compare(passwordx, user.passwordx);
 
     if (!isMatch) {
       return res.status(400).json({ error: 'Login Error!!' });
