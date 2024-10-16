@@ -26,10 +26,10 @@ const getStudentById = async (req, res) => {
 };
 
 const createStudent = async (req, res) => {
-  const { lname_e, fname_e, mname_e, user_id, course_id } = req.body; 
+  const { lastname, firstname, middlename, user_id, course_id } = req.body; 
 
   try {
-    const [result] = await pool.query('INSERT INTO students (lname_e, fname_e, mname_e, user_id, course_id) VALUES (?, ?, ?, ?, ?)', [lname_e, fname_e, mname_e, user_id, course_id]); // Fix: added course_id
+    const [result] = await pool.query('INSERT INTO students (lastname, firstname, middlename, user_id, course_id) VALUES (?, ?, ?, ?, ?)', [lastname, firstname, middlename, user_id, course_id]); // Fix: added course_id
     res.status(201).json({ message: 'Student Successfully Registered' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -38,10 +38,10 @@ const createStudent = async (req, res) => {
 
 const updateStudent = async (req, res) => {
   const { id } = req.params;
-  const { lname_e, fname_e, mname_e } = req.body;
+  const {lastname, firstname, middlename, } = req.body;
 
   try {
-    const [result] = await pool.query('UPDATE students SET lname_e = ?, fname_e = ?, mname_e = ? WHERE student_id = ?', [lname_e, fname_e, mname_e, id]);
+    const [result] = await pool.query('UPDATE students SET lastname = ?, firstname = ?, middlename = ? WHERE student_id = ?', [lastname, firstname, middlename, id]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Student not found' });
