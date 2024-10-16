@@ -14,7 +14,30 @@ const cors = require('cors');
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('Crispy Chicken Sandwich "Large" ');
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crispy Chicken Sandwich</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                font-family: Arial, sans-serif;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Crispy Chicken Sandwich "Large"</h1>
+    </body>
+    </html>
+  `);
 });
 
 // Endpoint Here
