@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const getAllStudent = async (_req, res) => {
   try {
-    const [rows] = await pool.query('SELECT student_id, lname_e, fname_e, mname_e, user_id, course_id, created_at, updated_at FROM student'); // Fix: added missing comma
+    const [rows] = await pool.query('SELECT student_id, lname_e, fname_e, mname_e, user_id, course_id, created_at, updated_at FROM students'); // Fix: added missing comma
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -29,7 +29,7 @@ const createStudent = async (req, res) => {
   const { lname_e, fname_e, mname_e, user_id, course_id } = req.body; 
 
   try {
-    const [result] = await pool.query('INSERT INTO student (lname_e, fname_e, mname_e, user_id, course_id) VALUES (?, ?, ?, ?, ?)', [lname_e, fname_e, mname_e, user_id, course_id]); // Fix: added course_id
+    const [result] = await pool.query('INSERT INTO students (lname_e, fname_e, mname_e, user_id, course_id) VALUES (?, ?, ?, ?, ?)', [lname_e, fname_e, mname_e, user_id, course_id]); // Fix: added course_id
     res.status(201).json({ message: 'Student Successfully Registered' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -41,7 +41,7 @@ const updateStudent = async (req, res) => {
   const { lname_e, fname_e, mname_e } = req.body;
 
   try {
-    const [result] = await pool.query('UPDATE student SET lname_e = ?, fname_e = ?, mname_e = ? WHERE student_id = ?', [lname_e, fname_e, mname_e, id]);
+    const [result] = await pool.query('UPDATE students SET lname_e = ?, fname_e = ?, mname_e = ? WHERE student_id = ?', [lname_e, fname_e, mname_e, id]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Student not found' });
